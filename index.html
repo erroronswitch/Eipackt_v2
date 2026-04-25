@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EiPack't UG - Meisterbetrieb für Isolierungen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        
+        :root {
+            --brand-blue: #005696;
+            --brand-red: #c4262e;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .text-brand-blue { color: var(--brand-blue); }
+        .text-brand-red { color: var(--brand-red); }
+        .bg-brand-blue { background-color: var(--brand-blue); }
+        .bg-brand-red { background-color: var(--brand-red); }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .card-shadow:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: translateY(-2px);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 2% auto;
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--brand-blue);
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white shadow-md border-b-4 border-brand-blue">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-12 h-12">
+                        <svg viewBox="0 0 100 100" class="w-full h-full">
+                            <path d="M10 50 L50 15 L90 50 L90 85 L10 85 Z" fill="#1a1a1a" />
+                            <path d="M50 15 L90 50 L90 85 L50 85 Z" fill="#005696" />
+                            <path d="M30 70 Q30 50 40 45 Q35 60 40 75 Q30 75 30 70" fill="#c4262e" />
+                            <g stroke="white" stroke-width="2">
+                                <line x1="62" y1="55" x2="78" y2="75" />
+                                <line x1="78" y1="55" x2="62" y2="75" />
+                                <line x1="70" y1="50" x2="70" y2="80" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-black leading-none uppercase tracking-tighter">
+                            <span class="text-brand-blue">Ei</span><span class="text-brand-red">Pack't</span>
+                        </span>
+                        <span class="text-[8px] font-bold uppercase tracking-[0.2em] text-slate-500">Meisterbetrieb</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menü -->
+                <div class="hidden md:flex items-center space-x-8 font-bold text-xs uppercase tracking-widest">
+                    <a href="#leistungen" class="nav-link">Leistungen</a>
+                    <a href="#vorteile" class="nav-link">Vorteile</a>
+                    <a href="#ueber-uns" class="nav-link">Über uns</a>
+                    <a href="#kontakt" class="bg-brand-red text-white px-5 py-2.5 rounded-lg hover:bg-red-700 transition shadow-lg">Kontakt</a>
+                </div>
+
+                <!-- Mobile Toggle -->
+                <div class="md:hidden">
+                    <button class="text-slate-600 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Sektion -->
+    <header class="relative hero-gradient py-20 lg:py-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center">
+                <h1 class="text-5xl lg:text-8xl font-black text-slate-900 mb-8 leading-none uppercase tracking-tighter">
+                    Fachgerechte <br>
+                    <span class="text-brand-blue">Leitungs</span><span class="text-brand-red">isolierungen</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-slate-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+                    Ihr zuverlässiger Partner für Wärme-, Kälte- und Schallschutz. Wir sorgen für Effizienz und Qualität am Bau.
+                </p>
+                <div class="flex flex-wrap justify-center gap-5">
+                    <a href="#kontakt" class="bg-brand-blue text-white px-12 py-5 rounded-2xl font-black text-xl shadow-2xl hover:bg-blue-800 transition transform hover:scale-105 uppercase tracking-wide">
+                        Termin vereinbaren
+                    </a>
+                    <div class="flex items-center px-8 py-5 bg-white border border-slate-200 rounded-2xl shadow-sm">
+                        <i class="fas fa-award text-brand-red mr-4 text-2xl"></i>
+                        <span class="font-bold text-slate-700 uppercase text-sm">Meisterqualität garantiert</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Dekorative Elemente -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-brand-blue opacity-[0.03] rounded-full"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-brand-red opacity-[0.03] rounded-full"></div>
+    </header>
+
+    <!-- Leistungen -->
+    <section id="leistungen" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tighter mb-4 italic">Unsere <span class="text-brand-blue">Leistungen</span></h2>
+                <div class="h-1.5 w-24 bg-brand-red mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="p-10 border-t-8 border-brand-red bg-slate-50 rounded-2xl card-shadow transition-all group">
+                    <i class="fas fa-tools text-brand-red text-4xl mb-6 group-hover:scale-110 transition"></i>
+                    <h3 class="text-2xl font-black text-brand-blue mb-4 uppercase">SHK-Betriebe</h3>
+                    <p class="text-slate-600 leading-relaxed">Professionelle Unterstützung für Ihre Großprojekte. Wir isolieren, während Sie installieren.</p>
+                </div>
+                <div class="p-10 border-t-8 border-brand-blue bg-slate-50 rounded-2xl card-shadow transition-all group">
+                    <i class="fas fa-industry text-brand-blue text-4xl mb-6 group-hover:scale-110 transition"></i>
+                    <h3 class="text-2xl font-black text-brand-blue mb-4 uppercase">Industrie</h3>
+                    <p class="text-slate-600 leading-relaxed">Hochwertige Isolierungen für komplexe Rohrleitungssysteme und Industrieanlagen.</p>
+                </div>
+                <div class="p-10 border-t-8 border-brand-red bg-slate-50 rounded-2xl card-shadow transition-all group">
+                    <i class="fas fa-city text-brand-red text-4xl mb-6 group-hover:scale-110 transition"></i>
+                    <h3 class="text-2xl font-black text-brand-blue mb-4 uppercase">Generalbau</h3>
+                    <p class="text-slate-600 leading-relaxed">Verlässlicher Nachunternehmer für reibungslose Abläufe auf der Baustelle.</p>
+                </div>
+                <div class="p-10 border-t-8 border-brand-blue bg-slate-50 rounded-2xl card-shadow transition-all group">
+                    <i class="fas fa-house-user text-brand-blue text-4xl mb-6 group-hover:scale-110 transition"></i>
+                    <h3 class="text-2xl font-black text-brand-blue mb-4 uppercase">Privatbau</h3>
+                    <p class="text-slate-600 leading-relaxed">Individuelle Lösungen für Neubau und Sanierung zur Senkung Ihrer Energiekosten.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vorteile -->
+    <section id="vorteile" class="py-24 bg-slate-900 text-white overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <h2 class="text-4xl md:text-6xl font-black text-center mb-20 uppercase tracking-tighter italic">
+                Warum <span class="text-brand-red">EiPack't</span>?
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-12">
+                <div class="flex items-start space-x-6">
+                    <div class="w-12 h-12 bg-brand-red flex items-center justify-center rounded-lg shrink-0">
+                        <i class="fas fa-leaf text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">Energieersparnis</h4>
+                        <p class="text-slate-400">Effektive Dämmung senkt den Energieverlust Ihrer Leitungen spürbar und schont den Geldbeutel.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-6">
+                    <div class="w-12 h-12 bg-brand-blue flex items-center justify-center rounded-lg shrink-0">
+                        <i class="fas fa-clock text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">Termintreue</h4>
+                        <p class="text-slate-400">Wir halten uns an Absprachen. Pünktlichkeit ist für uns als Handwerksbetrieb Ehrensache.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-6">
+                    <div class="w-12 h-12 bg-brand-red flex items-center justify-center rounded-lg shrink-0">
+                        <i class="fas fa-broom text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">Saubere Arbeit</h4>
+                        <p class="text-slate-400">Wir hinterlassen keine Baustelle. Sauberkeit und Sorgfalt stehen bei uns an erster Stelle.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-6">
+                    <div class="w-12 h-12 bg-brand-blue flex items-center justify-center rounded-lg shrink-0">
+                        <i class="fas fa-file-contract text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">GEG-Konformität</h4>
+                        <p class="text-slate-400">Wir arbeiten streng nach dem Gebäudeenergiegesetz (GEG) und aktuellen Normen.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Über Uns Sektion -->
+    <section id="ueber-uns" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2">
+                    <h2 class="text-4xl lg:text-5xl font-black text-slate-900 mb-6 uppercase tracking-tighter italic">
+                        Das Team hinter <span class="text-brand-blue">EiPack't</span>
+                    </h2>
+                    <div class="w-20 h-2 bg-brand-red mb-10"></div>
+                    <p class="text-lg text-slate-600 mb-10 leading-relaxed">
+                        Wir sind ein dynamischer Meisterbetrieb mit Sitz in Sulzbach an der Murr. Unsere Leidenschaft gilt der präzisen handwerklichen Ausführung von Isolierarbeiten aller Art. Wir packen es an – damit Sie Energie sparen.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div class="bg-slate-50 p-8 rounded-3xl border-l-8 border-brand-blue shadow-sm">
+                            <span class="text-xs font-black text-brand-blue uppercase tracking-widest mb-2 block">Geschäftsführung</span>
+                            <h4 class="text-2xl font-black text-slate-800">Ralf Eisenhardt</h4>
+                        </div>
+                        <div class="bg-slate-50 p-8 rounded-3xl border-l-8 border-brand-red shadow-sm">
+                            <span class="text-xs font-black text-brand-red uppercase tracking-widest mb-2 block">Geschäftsführung</span>
+                            <h4 class="text-2xl font-black text-slate-800">Giuseppe Pardo</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <div class="relative p-10 bg-slate-900 rounded-[3rem] shadow-2xl text-white">
+                        <i class="fas fa-quote-left text-5xl text-brand-red mb-6 opacity-50"></i>
+                        <p class="text-2xl font-medium leading-relaxed italic mb-8">
+                            "Qualität ist bei Isolierungen unsichtbar, aber in der Heizkostenabrechnung deutlich spürbar. Wir stehen für Handwerk, das sich auszahlt."
+                        </p>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-1 bg-brand-blue"></div>
+                            <span class="font-bold uppercase tracking-widest text-sm">Unser Versprechen</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontakt Bereich -->
+    <section id="kontakt" class="py-24 bg-brand-blue text-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-20 items-center">
+                <div class="lg:w-1/2">
+                    <h2 class="text-5xl font-black mb-8 uppercase tracking-tighter">Bereit zum <span class="text-brand-red">Einpacken</span>?</h2>
+                    <p class="text-xl text-blue-100 mb-12">Kontaktieren Sie uns für ein unverbindliches Angebot oder eine Beratung vor Ort.</p>
+                    
+                    <div class="space-y-10">
+                        <div class="flex items-center space-x-8 group">
+                            <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center group-hover:bg-brand-red transition duration-500">
+                                <i class="fas fa-phone-alt text-2xl"></i>
+                            </div>
+                            <a href="tel:01772415595" class="text-3xl font-black hover:text-red-400 transition">0177 / 2415595</a>
+                        </div>
+                        <div class="flex items-center space-x-8 group">
+                            <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center group-hover:bg-brand-red transition duration-500">
+                                <i class="fas fa-envelope text-2xl"></i>
+                            </div>
+                            <a href="mailto:info@eipackt.com" class="text-2xl font-bold hover:text-red-400 transition">info@eipackt.com</a>
+                        </div>
+                        <div class="flex items-start space-x-8">
+                            <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-2xl"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-lg font-bold mb-1">Firmensitz</h5>
+                                <p class="text-blue-100 opacity-80">EiPack't UG<br>Theresienweg 13<br>71560 Sulzbach an der Murr</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flyer Download Card -->
+                <div class="lg:w-1/2 w-full">
+                    <div class="bg-white p-12 lg:p-16 rounded-[4rem] text-slate-900 shadow-3xl text-center transform hover:-rotate-1 transition duration-500">
+                        <div class="inline-block p-6 bg-red-50 rounded-full mb-8">
+                            <i class="fas fa-file-pdf text-brand-red text-6xl"></i>
+                        </div>
+                        <h3 class="text-4xl font-black mb-6 uppercase tracking-tight">Unser Info-Flyer</h3>
+                        <p class="text-slate-600 mb-12 text-lg leading-relaxed">
+                            Alle Leistungen und Infos auf einer Seite. Ideal zum Ausdrucken oder Weiterleiten an Ihre Partner.
+                        </p>
+                        <a href="#" class="inline-flex items-center justify-center w-full bg-slate-900 text-white py-6 rounded-2xl font-black text-xl hover:bg-brand-red transition shadow-2xl uppercase tracking-widest">
+                            <i class="fas fa-download mr-4"></i>
+                            Download PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-16 border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center mb-10">
+                <div class="w-16 h-16 grayscale opacity-30">
+                    <svg viewBox="0 0 100 100">
+                        <path d="M10 50 L50 15 L90 50 L90 85 L10 85 Z" fill="currentColor" />
+                    </svg>
+                </div>
+            </div>
+            <p class="text-slate-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-8">
+                &copy; 2026 EiPack't UG (haftungsbeschränkt)
+            </p>
+            <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-slate-500 text-xs font-bold uppercase tracking-widest">
+                <button onclick="openModal('impressumModal')" class="hover:text-brand-blue transition">Impressum</button>
+                <button onclick="openModal('datenschutzModal')" class="hover:text-brand-blue transition">Datenschutz</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Impressum Modal -->
+    <div id="impressumModal" class="modal" onclick="closeModalOnOutsideClick(event, 'impressumModal')">
+        <div class="modal-content relative">
+            <button onclick="closeModal('impressumModal')" class="absolute top-6 right-8 text-3xl font-light text-slate-400 hover:text-slate-900">&times;</button>
+            <h2 class="text-3xl font-black text-brand-blue uppercase mb-8 border-b pb-4">Impressum</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 text-slate-700">
+                <div class="space-y-6">
+                    <section>
+                        <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Anbieter</h3>
+                        <p class="font-bold text-xl text-slate-900">EiPack't UG (haftungsbeschränkt)</p>
+                        <p>Theresienweg 13<br>71560 Sulzbach an der Murr</p>
+                    </section>
+                    <section>
+                        <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Vertretung</h3>
+                        <p class="font-bold">Geschäftsführer:<br>Ralf Eisenhardt & Giuseppe Pardo</p>
+                    </section>
+                </div>
+                <div class="space-y-6">
+                    <section>
+                        <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Kontakt</h3>
+                        <p>Telefon: <span class="font-bold">0177 / 2415595</span></p>
+                        <p>E-Mail: <span class="font-bold text-brand-blue">info@eipackt.com</span></p>
+                    </section>
+                    <section>
+                        <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Register</h3>
+                        <p class="text-sm">Registergericht: Amtsgericht Stuttgart<br>Registernummer: [In Gründung]</p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Datenschutz Modal -->
+    <div id="datenschutzModal" class="modal" onclick="closeModalOnOutsideClick(event, 'datenschutzModal')">
+        <div class="modal-content relative">
+            <button onclick="closeModal('datenschutzModal')" class="absolute top-6 right-8 text-3xl font-light text-slate-400 hover:text-slate-900">&times;</button>
+            <h2 class="text-3xl font-black text-brand-blue uppercase mb-8 border-b pb-4">Datenschutz</h2>
+            <div class="space-y-8 text-slate-700 text-sm leading-relaxed">
+                <section>
+                    <h3 class="font-black text-slate-900 uppercase text-xs tracking-widest mb-2">1. Datenschutz auf einen Blick</h3>
+                    <p>Wir freuen uns über Ihren Besuch auf unserer Website. Der Schutz Ihrer persönlichen Daten ist uns ein wichtiges Anliegen. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften.</p>
+                </section>
+                <section>
+                    <h3 class="font-black text-slate-900 uppercase text-xs tracking-widest mb-2">2. Datenerfassung</h3>
+                    <p>Die Nutzung unserer Webseite ist in der Regel ohne Angabe personenbezogener Daten möglich. Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name, Anschrift oder E-Mail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf freiwilliger Basis.</p>
+                </section>
+                <section>
+                    <h3 class="font-black text-slate-900 uppercase text-xs tracking-widest mb-2">3. Ihre Rechte</h3>
+                    <p>Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung sowie ein Recht auf Berichtigung, Sperrung oder Löschung dieser Daten.</p>
+                </section>
+                <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                    <p class="font-bold text-slate-900 mb-1 italic text-base">Verantwortlich im Sinne der DSGVO:</p>
+                    <p>EiPack't UG, Theresienweg 13, 71560 Sulzbach an der Murr</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Funktionalität
+        function openModal(id) {
+            document.getElementById(id).style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        function closeModalOnOutsideClick(event, id) {
+            if (event.target === document.getElementById(id)) {
+                closeModal(id);
+            }
+        }
+
+        // Smooth Scroll Offset (wegen fixed nav)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
